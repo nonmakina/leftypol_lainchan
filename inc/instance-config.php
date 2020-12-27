@@ -159,7 +159,6 @@ $config['additional_javascript'][] = 'js/youtube.js';
  *  Mark up
  * ====================
  */
-$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 
 /*
  * ====================
