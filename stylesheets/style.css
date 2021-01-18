@@ -65,10 +65,18 @@ img.banner, img.board_image {
   background-color: #D6DAF0;
   border-color: #B7C5D9;
 }
-.bar > :not(script) {
+/*.bar > :not(script) {
   display: table-cell;
   vertical-align: middle;
+}*/
+.boardlist {
+  display: flex;
+  flex-wrap: wrap;
 }
+.boardlist > :not(last-of-type) {
+  margin-right: 2px;
+}
+
 .bar.top {
   text-align: center;
   top: 0px;
@@ -1287,12 +1295,18 @@ div.boardlist {
     
     color: #89A;
     font-size: 9pt;
-    word-spacing:-3px;
+    word-spacing:-1px;
 }
 div.boardlist.bottom {
     margin-top: 12px;
     clear: both;
 }
+
+.boardlist_options {
+  flex-grow: 1;
+  text-align: end;
+}
+
 div.boardlist a {
     text-decoration: none;
 }

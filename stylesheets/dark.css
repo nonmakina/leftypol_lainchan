@@ -8,6 +8,11 @@ body {
 	font-family: sans-serif;
 	font-size: 12px;
 }
+
+.bar {
+	border-color: #1E1E1E;
+}
+
 .quote {
     color:#B8D962;
 }
