@@ -88,7 +88,7 @@
 
      .boardLink {
        padding: 10px;
-       margin: 30px;
+       margin: 20px;
        margin-top: 0px;
        color: rgb(252, 216, 0);
        border: 1px solid rgb(223, 48, 43);
@@ -221,24 +221,28 @@
         <div class="boardMenu">
           <div class="boardMenuTitle"><h1>Leftypol.org</h1></div>
           <div class="boardMenuList">
-            <div class="boardLink">
-              <a href="/overboard/">☭ /overboard/</a></br>
-              <span>Recent posts pseudo-board</span>
-            </div>
+            <a href="/overboard/">
+              <div class="boardLink">
+                <span class="boardLinkTitle">☭ /overboard/ - </span>
+                <span>Recent posts pseudo-board</span>
+              </div>
+            </a>
             {% for category, boards in categories %}
                 {% for board in boards %}
-                  <a href="{{ board.title|e }}">
+                  <a href="{{ board.uri }}">
                       <div class="boardLink">
-                        <span class="boardLinkTitle">☭ /{{ board.uri }}</a></br>
+                        <span class="boardLinkTitle">☭ /{{ board.uri }} - </span>
                         <span>{{ board.title|e }}</span>
                       </div>
                   </a>
                 {% endfor %}
             {% endfor %}
-            <div class="boardLink">
-              <a href="https://tv.leftypol.org/">☭ /cytube/</a></br>
-              <span>Watch videos with the comrades</span>
-            </div>
+            <a href="https://tv.leftypol.org/">
+              <div class="boardLink">
+                <span class="boardLinkTitle">☭ /cytube/ - </span>
+                <span>Watch videos with the comrades</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -270,10 +274,12 @@
         {% for category, links in config.custom_categories %}
             <div class="categoryTitle"><span>{{ category }}</span></div>
             {% for link in links %}
+            <a href="{{ link[2] }}">
               <div class="boardLink">
-                <a href="{{ link[2] }}">{{ link[0] }}</a></br>
+                <span class="boardLinkTitle">{{ link[0] }} - </span>
                 <span>{{ link[1] }}</span>
               </div>
+            </a>
             {% endfor %}
         {% endfor %}
         </div>
