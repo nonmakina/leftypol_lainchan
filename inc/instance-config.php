@@ -50,21 +50,21 @@ $config['categories'] = array(
 // with non-board links.
 $config['custom_categories'] = array(
     'Our Friends' => array(
-        'GET' => 'https://getchan.net/GET/',
-        'ref' => 'https://getchan.net/ref/'
+        array('GET', 'A hangout', 'https://getchan.net/GET/'),
+        array('ref', 'International comrades', 'https://getchan.net/ref/'),
     ),
     'Links' => array(
-        'New Multitude' => 'https://newmultitude.org/',
-        'Booru image repository' => 'https://lefty.booru.org/',
-        'Leftypedia' => 'https://leftypedia.org/',
-        'Official chat room' => 'https://app.element.io/#/room/!RQxdjfGouwsFHwUzwL:matrix.org',
-        'Rules' => 'rules.html'
+        array('New Multitude', 'International comrades', 'https://newmultitude.org/'),
+        array('Booru image repository', 'International comrades', 'https://lefty.booru.org/'),
+        array('Leftypedia', 'International comrades', 'https://leftypedia.org/'),
+        array('Official chat room', 'International comrades', 'https://app.element.io/#/room/!RQxdjfGouwsFHwUzwL:matrix.org'),
+        array('Rules', 'International comrades', 'rules.html')
     ),
     'Learning resources and blogs' => array(
-        'Michael Roberts\' blog' => 'https://thenextrecession.wordpress.com/',
-        'A Critique Of Crisis Theory blog' => 'https://critiqueofcrisistheory.wordpress.com/',
-        'Leftypedia' => 'https://leftypedia.org/',
-        'Marxist Internet Archive' => 'https://www.marxists.org/'
+        array('Michael Roberts\' blog', 'International comrades', 'https://thenextrecession.wordpress.com/'),
+        array('A Critique Of Crisis Theory blog', 'International comrades', 'https://critiqueofcrisistheory.wordpress.com/'),
+        array('Leftypedia', 'International comrades', 'https://leftypedia.org/'),
+        array('Marxist Internet Archive', 'International comrades', 'https://www.marxists.org/')
     ),
 );
 

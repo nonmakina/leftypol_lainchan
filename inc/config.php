@@ -992,12 +992,12 @@
     //  'Group Name' => array('a', 'b', 'c'),
     //  'Another Group' => array('d')
     // );
-    // Optional for the Categories theme. This is an array of name => (title, url) groups for categories
+    // Optional for the Categories theme. This is an array of name => (title, description, url) groups for categories
     // with non-board links.
     // $config['custom_categories'] = array(
     //  'Links' => array(
-    //      'Tinyboard' => 'http://tinyboard.org',
-    //      'Donate' => 'donate.html'
+    //      array('Tinyboard', 'Tiny board description', http://tinyboard.org'),
+    //      array('Donate', 'Tiny board description', 'donate.html')
     //  )
     // );
 

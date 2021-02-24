@@ -1,81 +1,331 @@
 <!doctype html>
-<html>
-<head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>/leftypol/</title>
+    <link rel="stylesheet" media="screen" href="stylesheets/style.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/dark_red.css">
+    <style>
+     body {
+       background: rgb(31,31,31);
+       color: rgb(252, 216, 0);
+     }
 
-    <link rel="stylesheet" media="screen" href="{{ config.url_stylesheet }}">
-    <link rel="stylesheet" media="screen" href="stylessheets/dark_red.css">
-    <style type="text/css">
-        .sidebar {
-            width: 200px;
-            border-right-color: gray;
-            border-right-style: solid;
-            border-width: 2px;
-            margin-right: 15px;
-        }
+     .content {
+       display: flex;
+       flex-direction: column;
+     }
 
-        .content {
-            width: 100%;
-        }
+     .content > div {
+       margin-bottom: 80px;
+     }
+     span.heading {
+       color: rgb(252, 216, 0);
+     }
 
-        body {
-            display: flex;
-            height: 100vh;
-        }
+     /* SEGMENT: BOARDS */
+     .segmentBoards {
+       flex-direction: column;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+     }
 
-        fieldset {
-            margin: 10px;
-        }
+     .boardMenuTitle {
+       color: rgb(223, 48, 43);
+       color: rgb(252, 216, 0);
+       font-family: monospace, sans-serif;
+       margin: 10px;
+       margin-top: 0px;
+       text-align: center;
+     }
+     .boardMenuTitle > h1 {
+       margin: 0px;
+       letter-spacing: -1px;
+       font-family: monospace;
+     }
 
-        legend {
-            width: 100%;
-            margin-left: -15px;
-            background: #8B0000;
-            border: 1px solid white;
-            color: #d0d3d4;
-            font-weight: bold;
-            padding: 5px 5px
-        }
+     .flag {
+       display: flex;
+       align-items: center;
+       width: 50vw;
+       max-width: 350px;
+       min-width: 80px;
+     }
 
-        ul {
-            margin: 0;
-            padding: 0
-        }
+     @media (min-width: 610px){
+       .boardMenuTitle {
+         font-size: .8rem;
+         position: absolute;
+         top: 0;
+         right: 0;
+       }
+       .segmentBoards{
+         margin-top: 170px;
+         flex-direction: row;
+       }
 
-        li {
-            list-style: none;
-            padding: 0 4px;
-            margin: 0 4px
-        }
+      .flag {
+        width: 40vw;
+        margin: 2vw;
+      }
+       .boardMenuList {
+         display: flex;
+         flex-direction: column;
+       }
+       .boardLink {
+         width: 450px;
+       }
+     }
 
-        li a.system {
-            font-weight: bold;
-        }
-        
-        @media (max-width:768px) {
-            .sidebar {
-                width: 80vw;
-                border: none;
-            }
-            .main {
-                flex-direction: column;
-                align-items: center;
-            }
+     .flag img {
+       width: 100%;
+     }
 
-            .boardlist {
-                display: none;
-            }
+     .boardMenu {
+       width: 100%;
+     }
 
-            footer {
-                display: none;
-            }
-        }
+     .boardLink {
+       padding: 10px;
+       margin: 30px;
+       margin-top: 0px;
+       color: rgb(252, 216, 0);
+       border: 1px solid rgb(223, 48, 43);
+       box-shadow: 3px 5px rgb(163, 18, 13);
+     }
+     .boardLink > a {
+       color: rgb(252, 216, 0);
+       text-decoration: none;
+       font-size: 20px;
+       font-weight: bold;
+       line-height: 30px;
+       font-family: Helvetica;
+     }
+
+     .boardLink:hover {
+       cursor: pointer;
+       text-decoration: underline;
+       box-shadow: 3px 5px red;
+       border: 1px solid red;
+     }
+
+     /* SEGMENT: news and links*/
+     .segmentNewsLinks {
+       flex-direction: column;
+       display: flex;
+       margin-top: 30px;
+     }
+     .segmentNewsLinks h1 {
+       color: rgb(252, 216, 0);
+       font-weight: lighter;
+       font-size: 40px;
+       letter-spacing: 1px;
+     }
+
+     .news {
+       margin-bottom: 30px;
+     }
+
+     .newsElements {
+       height: 500px;
+       overflow: scroll;
+     }
+     .newsElements > div.ban {
+        background: rgb(31,31,31);
+        border-color: transparent;
+        color: rgb(250,240,240);
+        border-bottom-color: red;
+     }
+
+     .newsElements a {
+         background:  rgb(31,31,31);
+       border-color: transparent;
+       color: rgb(255,200,200);
+     }
+
+     .newsElements > div.ban h2 {
+         background:  rgb(31,31,31);
+     }
+
+    .linkSection .categoryTitle {
+       padding: 5px;
+       margin: 10px;
+       font-size: 19px;
+       width: max-content;
+       background: rgb(223, 48, 43);
+       box-shadow: 3px 5px rgb(163, 18, 13);
+     }
+
+
+    @media (min-width: 600px){
+      .segmentNewsLinks {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .news {
+        margin-bottom: 0px;
+      }
+      .linkSection > h1 {
+        margin-bottom: 30px;
+      }
+    }
+
+     /* SEGMENT: POST STATISTICS*/
+     
+     .segmentPostStatistic table{
+       border-spacing: 10px 0;
+     }
+     .segmentPostStatistic thead{
+       border-spacing: 30px;
+       margin-bottom: 10px;
+       padding-bottom: 10px;
+
+     }
+     .segmentPostStatistic tbody tr:first-child td{
+       padding-top: 20px;
+     }
+     table thead th {
+       background: rgb(223, 48, 43);
+       box-shadow: 3px 5px rgb(163, 18, 13);
+       border-color: transparent;
+     }
+
+     .segmentPostStatistic h1 {
+       color: rgb(252, 216, 0);
+       font-weight: lighter;
+       font-size: 40px;
+       letter-spacing: 1px;
+     }
+
+     .segmentPostStatistic td.minimal, th.minimal {
+         white-space: normal;
+         width: max-content;
+      }
+
+     .footer {
+       height: 50px;
+     }
     </style>
-    <title>{{ settings.title }}</title>
-</head>
-<body>
-    {% include 'themes/categories/' ~ settings.file_sidebar %}
-    {% include 'themes/categories/' ~ settings.file_news %}
-</body>
+  </head>
+  <body>
+    <div class="content">
+      <div class="segmentBoards">
+        <div class="flag">
+          <img alt="leftypol's banner" src="static/logo.png"/>
+        </div>
+        <div class="boardMenu">
+          <div class="boardMenuTitle"><h1>Leftypol.org</h1></div>
+          <div class="boardMenuList">
+            <div class="boardLink">
+              <a href="/overboard/">☭ /overboard/</a></br>
+              <span>Recent posts pseudo-board</span>
+            </div>
+            {% for category, boards in categories %}
+                {% for board in boards %}
+                    <div class="boardLink">
+                      <a href="{{ board.title|e }}">☭ /{{ board.uri }}/</a></br>
+                      <span>{{ board.title|e }}</span>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <div class="boardLink">
+              <a href="https://tv.leftypol.org/">☭ /cytube/</a></br>
+              <span>Watch videos with the comrades</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="segmentNewsLinks">
+        <div class="news">
+          <h1>news</h1>
+          <div class="newsElements">
+            <div class="ban">
+                {% if not news %}
+                    <p style="text-align:center" class="unimportant">{% trans %}(No news to show.){% endtrans %}</p>
+                {% else %}
+                    {% for entry in news %}
+                        <h2 id="{{ entry.id }}">
+                            {% if entry.subject %}
+                                {{ entry.subject }}
+                            {% else %}
+                                <em>{% trans %}no subject{% endtrans %}</em>
+                            {% endif %}
+                            <span class="unimportant"> &mdash; {% trans %}by{% endtrans %} {{ entry.name }} {% trans %}at{% endtrans %} {{ entry.time|date(config.post_date) }}</span>
+                        </h2>
+                        <p>{{ entry.body }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="linkSection">
+          <h1>links</h1>
+        {% for category, links in config.custom_categories %}
+            <div class="categoryTitle"><span>{{ category }}</span></div>
+            {% for link in links %}
+              <div class="boardLink">
+                <a href="{{ link[2] }}">{{ link[0] }}</a></br>
+                <span>{{ link[1] }}</span>
+              </div>
+            {% endfor %}
+        {% endfor %}
+        </div>
+      </div>
+      <div class="segmentPostStatistic">
+        {% if stats %}
+            <div class="ban" style="border: none; background: none;">
+                <h1 id="post-statistics">
+                {% trans "Post Statistics" %}
+                </h1>
+            </div>
+            <table class="modlog" style="text-align: left;">
+                <thead>
+                    <tr>
+                        <th>{% trans "Board" %}</th>
+                        <th>{% trans "PPH" %}</th>
+                        <th>{% trans "Recent IPs" %}</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td class="minimal">
+                            <span>{% trans "Total" %}</span>
+                        </td>
+                        <td class="minimal">
+                            <span>{{ stats.pph }}</span>
+                        </td>
+                        <td class="minimal">
+                            <span>{{ stats.recent_ips }}</span>
+                        </td>
+                    </tr>
+                    {% for boardStat in stats.boards %}
+                        <tr>
+                            <td class="minimal">
+                                <span>{{ boardStat.title }}</span>
+                            </td>
+                            <td class="minimal">
+                                <span>{{ boardStat.pph }}</span>
+                            </td>
+                            <td class="minimal">
+                                <span>{{ boardStat.recent_ips }}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+      </div>
+    <footer class="footer">
+            <p class="unimportant" style="margin-top:20px;text-align:center;">- Tinyboard +
+                    <a href="https://engine.vichan.net/">vichan</a> {{ config.version }} -
+            <br>Tinyboard Copyright &copy; 2010-2014 Tinyboard Development Group
+            <br><a href="https://engine.vichan.net/">vichan</a> Copyright &copy; 2012-2016 vichan-devel
+        <br><br>
+        <br><b>Leftypol.org is not currently under investigation by any Federal, State, or Local Authorities.</b></p>
+    </footer>
+    </div>
+  </body>
 </html>

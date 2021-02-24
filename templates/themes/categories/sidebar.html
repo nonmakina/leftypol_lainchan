@@ -27,9 +27,9 @@
 			<legend>
 				{{ category }}
 			</legend>
-			{% for title, uri in links %}
+			{% for link in links %}
 				<li>
-					<a href="{{ uri }}">{{ title }}</a>
+					<a href="{{ link[2] }}">{{ link[0] }}</a>
 				</li>
 			{% endfor %}
 		</fieldset>
