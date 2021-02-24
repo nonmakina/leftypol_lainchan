@@ -94,7 +94,7 @@
        border: 1px solid rgb(223, 48, 43);
        box-shadow: 3px 5px rgb(163, 18, 13);
      }
-     .boardLink > a {
+     .boardLinkTitle {
        color: rgb(252, 216, 0);
        text-decoration: none;
        font-size: 20px;
@@ -121,6 +121,7 @@
        font-weight: lighter;
        font-size: 40px;
        letter-spacing: 1px;
+       font-family: sans-serif;
      }
 
      .news {
@@ -128,7 +129,7 @@
      }
 
      .newsElements {
-       height: 500px;
+       height: 1100px;
        overflow: scroll;
      }
      .newsElements > div.ban {
@@ -198,6 +199,7 @@
        font-weight: lighter;
        font-size: 40px;
        letter-spacing: 1px;
+       font-family: sans-serif;
      }
 
      .segmentPostStatistic td.minimal, th.minimal {
@@ -225,10 +227,12 @@
             </div>
             {% for category, boards in categories %}
                 {% for board in boards %}
-                    <div class="boardLink">
-                      <a href="{{ board.title|e }}">☭ /{{ board.uri }}/</a></br>
-                      <span>{{ board.title|e }}</span>
-                    </div>
+                  <a href="{{ board.title|e }}">
+                      <div class="boardLink">
+                        <span class="boardLinkTitle">☭ /{{ board.uri }}</a></br>
+                        <span>{{ board.title|e }}</span>
+                      </div>
+                  </a>
                 {% endfor %}
             {% endfor %}
             <div class="boardLink">
