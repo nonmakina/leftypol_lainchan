@@ -51,20 +51,21 @@ $config['categories'] = array(
 $config['custom_categories'] = array(
     'Our Friends' => array(
         array('GET', 'A hangout', 'https://getchan.net/GET/'),
-        array('ref', 'International comrades', 'https://getchan.net/ref/'),
+        array('ref', 'International discussion from /GET/', 'https://getchan.net/ref/'),
     ),
     'Links' => array(
-        array('New Multitude', 'International comrades', 'https://newmultitude.org/'),
-        array('Booru image repository', 'International comrades', 'https://lefty.booru.org/'),
-        array('Leftypedia', 'International comrades', 'https://leftypedia.org/'),
-        array('Official chat room', 'International comrades', 'https://app.element.io/#/room/!RQxdjfGouwsFHwUzwL:matrix.org'),
-        array('Rules', 'International comrades', 'rules.html')
+        array('New Multitude', 'Independent leftist essays and articles', 'https://newmultitude.org/'),
+        array('Booru image repository', 'Searchable /leftypol/ image archive', 'https://lefty.booru.org/'),
+        array('Leftypedia', 'The Free Leftist Encyclopedia', 'https://leftypedia.org/'),
+        array('Official chat room', 'Direct line to mods and other users', 'https://app.element.io/#/room/!RQxdjfGouwsFHwUzwL:matrix.org'),
+        array('Rules', 'Guide to posting ettiquette', 'rules.html')
     ),
     'Learning resources and blogs' => array(
-        array('Michael Roberts\' blog', 'International comrades', 'https://thenextrecession.wordpress.com/'),
-        array('A Critique Of Crisis Theory blog', 'International comrades', 'https://critiqueofcrisistheory.wordpress.com/'),
-        array('Leftypedia', 'International comrades', 'https://leftypedia.org/'),
-        array('Marxist Internet Archive', 'International comrades', 'https://www.marxists.org/')
+        array('Michael Roberts\' blog', 'from a Marxist economist', 'https://thenextrecession.wordpress.com/'),
+        array('A Critique Of Crisis Theory blog', 'another great blog', 'https://critiqueofcrisistheory.wordpress.com/'),
+        array('Leftypedia', 'great articles on a variety of topics', 'https://leftypedia.org/'),
+        array('Marxist Internet Archive', 'a comprehensive repository of leftist writings', 'https://www.marxists.org/'),
+        array('The Anarchist Library', 'a large archive of (mostly anarcho-)leftist writings both old and new', 'https://theanarchistlibrary.org/'),
     ),
 );
 
@@ -118,6 +119,14 @@ $config['spam']['enabled'] = false;
 /*
  * Permissions
  */
+// Post news entries
+$config['mod']['news'] = MOD;
+// Custom name when posting news
+$config['mod']['news_custom'] = MOD;
+// Delete news entries
+$config['mod']['news_delete'] = MOD;
+
+
 $config['mod']['move'] = MOD;
 $config['mod']['editpost'] = MOD;
 // Raw HTML posting
