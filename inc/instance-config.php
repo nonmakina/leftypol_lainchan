@@ -423,6 +423,14 @@ $config['markup'][] = array("/~~(.+?)~~/", "<span class=\"strikethrough\">\$1</s
 // $config['wordfilters'][] = array('/seethe/i', 'i agreeing', true);
 // $config['wordfilters'][] = array('/liberal/i', 'leninist', true);
 
+// Prototype spam filter for copy-pasting an entire post via browser selection
+$config['flood_filters'][] = array(
+	'condition' => array(
+		'body' => '/File \(hide\):/', // It is reasonable to expect no legitimate post to have this string.
+	),
+	'action' => 'reject',
+	'message' => 'Due to recent spam, all posting now requires a password. To receive a password, email a short explanation of the Labor Theory of Value to space@national.shitposting.agency .' 
+);
 // Changes made via web editor by "zul_admin" @ Fri, 19 Feb 2021 15:06:33 -0800:
 $config['reply_limit'] = 800;
 
