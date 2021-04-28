@@ -34,7 +34,9 @@
 		// Build homepage
 		public static function homepage($settings) {
 			global $config;
-			$query = query("SELECT * FROM ``news`` ORDER BY `time` DESC") or error(db_error());
+			$query = prepare("SELECT * FROM ``news`` ORDER BY `time` DESC LIMIT :limit");
+			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100);
+			$query->execute() or error(db_error($query));
 			$news = $query->fetchAll(PDO::FETCH_ASSOC);
 			$stats = Categories::getPostStatistics($settings);
 			return Element(
@@ -54,8 +56,9 @@
 		// Build news page
 		public static function news($settings) {
 			global $config;
-
-			$query = query("SELECT * FROM ``news`` ORDER BY `time` DESC") or error(db_error());
+			$query = prepare("SELECT * FROM ``news`` ORDER BY `time` DESC LIMIT :limit");
+			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100);
+			$query->execute() or error(db_error($query));
 			$news = $query->fetchAll(PDO::FETCH_ASSOC);
 			$stats = Categories::getPostStatistics($settings);
 			return Element('themes/categories/news.html', Array(
