@@ -35,7 +35,7 @@
 		public static function homepage($settings) {
 			global $config;
 			$query = prepare("SELECT * FROM ``news`` ORDER BY `time` DESC LIMIT :limit");
-			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100);
+			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100, PDO::PARAM_INT);
 			$query->execute() or error(db_error($query));
 			$news = $query->fetchAll(PDO::FETCH_ASSOC);
 			$stats = Categories::getPostStatistics($settings);
@@ -57,7 +57,7 @@
 		public static function news($settings) {
 			global $config;
 			$query = prepare("SELECT * FROM ``news`` ORDER BY `time` DESC LIMIT :limit");
-			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100);
+			$query->bindValue(':limit', $config['mod']['news_page'] ?? 100, PDO::PARAM_INT);
 			$query->execute() or error(db_error($query));
 			$news = $query->fetchAll(PDO::FETCH_ASSOC);
 			$stats = Categories::getPostStatistics($settings);
