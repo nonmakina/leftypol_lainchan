@@ -27,6 +27,8 @@ $config['boards'] = array(
 
 $config['prepended_foreign_boards'] = array(
     'overboard' => '/overboard/',
+    'sfw' => '/sfw/',
+    'alt' => '/alt/',
     'cytube' => 'https://tv.leftypol.org/'
 );
 
@@ -86,8 +88,8 @@ $config['cookies']['salt'] = 'MGYwNjhlNjU5Y2QxNWU3YjQ3MzQ1Yj';
 
 $config['search']['enable'] = true;
 $config['flood_cache'] = 60 * 15; // 15 minutes. The oldest a post can be in the flood table
-$config['flood_time_any'] = 40; // time between thread creation
-$config['flood_time'] = 30;
+$config['flood_time_any'] = 20; // time between thread creation
+$config['flood_time'] = 5;
 $config['flood_time_ip'] = 60;
 $config['flood_time_same'] = 60;
 $config['max_body'] = 100000;
@@ -107,6 +109,11 @@ $config['secure_trip_salt'] = 'ODQ2NDM0ODlmMmRhNzk2M2EyNjJlOW';
 //Banners
 $config['url_banner'] = '/banners.php';
 
+//Date format
+$config['post_date'] = '%F (%a) %T';
+
+$config['thread_subject_in_title'] = true;
+
 /*
  * Some users are having trouble posting when this is on,
  * with the message 'Your request looks automated; Post discarded.'
@@ -116,6 +123,11 @@ $config['url_banner'] = '/banners.php';
  * If we are getting spammed hard, try turning this on.
  */
 $config['spam']['enabled'] = false;
+
+/*
+ * Basic captcha. See also: captchaconfig.php
+ */
+$config['securimage'] = false;
 
 /*
  * Permissions
@@ -146,7 +158,15 @@ $config['max_images'] = 5;
 $config['image_reject_repost'] = false;
 
 $config['thumb_method'] = 'gm+gifsicle';
+$config['thumb_ext'] = 'webp';
 $config['gnu_md5'] = '1';
+
+
+// Strip EXIF metadata from JPEG files.
+$config['strip_exif'] = true;
+// Use the command-line `exiftool` tool to strip EXIF metadata without decompressing/recompressing JPEGs.
+$config['use_exiftool'] = true;
+
 // $config['update_on_posts'] = true;
 $config['referer_match'] = false;
 
@@ -183,7 +203,7 @@ $config['allowed_ext_files'][] = 'bz2';
  */
 $config['country_flags_condensed'] = false;
 $config['user_flag'] = true;
-$config['flag_style'] = 'width:auto;height:11px;';
+$config['flag_style'] = 'width:auto;max-height:16px;';
 $config['user_flags'] = array (
     '4th_international' => '4th International',
     'acceleration' => 'Acceleration',
@@ -198,7 +218,7 @@ $config['user_flags'] = array (
     'anarcho-primitivism' => 'Anarcho-Primitivism',
     'antifa' => 'Antifa',
     'armchair' => 'Armchair',
-    'athiesm' => 'Athiesm',
+    'atheism' => 'Atheism',
     'bolshevik' => 'Bolshevik',
     'brocialism' => 'Brocialism',
     'burkina_faso' => 'Burkina Faso',
@@ -219,6 +239,7 @@ $config['user_flags'] = array (
     'dprk' => 'DPRK',
     'egalitarianism' => 'Egalitarianism',
     'egoism' => 'Egoism',
+    'eristocracy' => 'Έριστοκρατία',
     'eureka' => 'Eureka',
     'eurocommunism' => 'Eurocommunism',
     'farc' => 'Las FARC',
@@ -330,6 +351,7 @@ $config['stylesheets']['TempDark'] = 'temp_dark.css';
 $config['stylesheets']['TempDarkRed'] = 'temp_dark_red.css';
 $config['stylesheets']['AnonsDarkRed'] = 'anons_dark_red.css';
 $config['stylesheets']['BunkerLike'] = 'bunker_like.css';
+$config['stylesheets']['Post-Left'] = 'dead.css';
 
 $config['default_stylesheet'] = array('Dark Red', $config['stylesheets']['Dark Red']);
 /*
@@ -342,12 +364,14 @@ $config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 $config['additional_javascript'][] = 'js/ajax.js';
 
 $config['additional_javascript'][] = 'js/options.js';
+$config['additional_javascript'][] = 'js/strftime.min.js';
 $config['additional_javascript'][] = 'js/local-time.js';
 $config['additional_javascript'][] = 'js/auto-reload.js';
 $config['additional_javascript'][] = 'js/auto-scroll.js';
 $config['additional_javascript'][] = 'js/thread-stats.js';
 $config['additional_javascript'][] = 'js/post-hover.js';
 $config['additional_javascript'][] = 'js/style-select.js';
+$config['additional_javascript'][] = 'js/flag-preview.js';
 
 $config['additional_javascript'][] = 'js/hide-threads.js';
 $config['additional_javascript'][] = 'js/hide-images.js';
@@ -371,6 +395,8 @@ $config['additional_javascript'][] = 'js/save-user_flag.js';
 $config['additional_javascript'][] = 'js/webm-settings.js';
 $config['additional_javascript'][] = 'js/expand-video.js';
 $config['additional_javascript'][] = 'js/download-original.js';
+
+$config['flag_preview'] = true;
 
 $config['enable_embedding'] = true;
 
@@ -398,41 +424,111 @@ $config['markup'][] = array("/^\s*&lt;.*$/m", '<span class="orangeQuote">$0</spa
 $config['markup'][] = array("/__(.+?)__/", "<span class=\"underline\">\$1</span>");
 $config['markup'][] = array("/~~(.+?)~~/", "<span class=\"strikethrough\">\$1</span>");
 
-// 2021 april fools:
-// $config['wordfilters'][] = array('/Stalin/i', 'Stalin (he/him)', true);
-// $config['wordfilters'][] = array('/Capitalism/i', 'Crony Capitalism', true);
-// $config['wordfilters'][] = array('/April fool\'s/i', 'Marx\'s birthday', true);
-// $config['wordfilters'][] = array('/April fools/i', 'Marx\'s birthday', true);
-// $config['wordfilters'][] = array('/China/i', 'Taiwan', true);
-// $config['wordfilters'][] = array('/Retard/i', 'smart', true);
-// $config['wordfilters'][] = array('/Communism/i', 'social democracy', true);
-// $config['wordfilters'][] = array('/revolution /i', 'reforms ', true);
-// $config['wordfilters'][] = array('/revolutionary/i', 'reformist', true);
-// $config['wordfilters'][] = array('/Karl Marx/i', 'Ferdinand Lassalle', true);
-// $config['wordfilters'][] = array('/jewish nigger/i', 'dear friend', true);
-// $config['wordfilters'][] = array('/Lenin/i', 'Kautsky', true);
-// $config['wordfilters'][] = array('/Bourgeois /i', 'Patrician ', true);
-// $config['wordfilters'][] = array('/vaush /i', 'Haz ', true);
-// $config['wordfilters'][] = array('/anarchists/i', 'vaushists', true);
-// $config['wordfilters'][] = array('/anarchy|anarchism/i', 'vaushism', true);
-// $config['wordfilters'][] = array('/Bourgeoisie/i', 'job creators', true);
-// $config['wordfilters'][] = array('/kulak|koulak/i', 'martyr', true);
-// $config['wordfilters'][] = array('/breadtube/i', 'basedtube', true);
-// $config['wordfilters'][] = array('/tranny jannies/i', 'insanely based mods', true);
-// $config['wordfilters'][] = array('/tranny janny/i', 'a respectable member of the jannguard', true);
-// $config['wordfilters'][] = array('/anglo/i', 'black', true);
-// $config['wordfilters'][] = array('/Trotksy /i', 'Trotsky, Lenin\'s rightful heir, ', true);
-// $config['wordfilters'][] = array('/Bookchin/i', 'Postchin', true);
-// $config['wordfilters'][] = array('/infrared/i', 'the cult', true);
-// $config['wordfilters'][] = array('/ pill/i', ' vaccine', true);
-// $config['wordfilters'][] = array('/crisis/i', 'christmas', true);
-// $config['wordfilters'][] = array('/trannies/i', 'those that are advancing the dialectic of the human body and it\'s limitation', true);
-// $config['wordfilters'][] = array('/dialectical materialism/i', 'magic', true);
-// $config['wordfilters'][] = array('/dialectical/i', 'magic', true);
-// $config['wordfilters'][] = array('/cope/i', 'i agreeing', true);
-// $config['wordfilters'][] = array('/seethe/i', 'i agreeing', true);
-// $config['wordfilters'][] = array('/liberal/i', 'leninist', true);
+/*
+ * Original wordfilters (Obsolete, this is the basic form of the newer version below)
+ */
+// $config['wordfilters'][] = array('/trann(y|ie)?/i', 'transhumanist', true);
+// $config['wordfilters'][] = array('/nigger/i', 'uyghur', true);
+// $config['wordfilters'][] = array('/nigg/i', 'uygh', true);
+
+/*
+ * Traditional word filters. Expires 31-12-2021.
+ *
+ * So, there are three flags at the end of each regex pattern, the "imu" at the end:
+ * Case Insensitive, Multiline and UTF-8 (to avoid breaking non-English posts)
+ * Let's take the nigg filter as an example.
+ *
+ * n+ [^a-z]* i+ [^a-z]* g+ [^a-z]* g+  ( [$x_alias] is just a set of common lookalike characters for x)
+ *
+ * Basic regex syntax: * means the preceeding element will be matched if it repeats 0 or more times. + will match 1 or more times
+ * so a+ matches cat or caaat
+ *
+ * [] denotes a set of possible matches, so c[au]t matches 'cat' and 'cut'
+ * [a-z] means any character from a to z and [^a-z] means any character that isn't in the alphabet (the starting ^ inverts the set)
+ * We have the case insensitive flag so captials are included.
+ *
+ * The [$n_alias]+ means that nnnnnnigg still matches due to repetition
+ * The [^a-z]* means that if someone does 'n..i..g..g', then the 0 or more non-alphabet padding
+ * characters between the n, i, g, g are still matching. Note that it's 0 or more, not 1 or more, so 'nigg' still matches.
+ *
+ * [\p{L}] is a pre-made class of unicode letters (so for example an a with an accent is included)
+ *
+ * Example:
+ * https://regex101.com/r/31wYx0/2
+ *
+ */
+$a_alias = 'a4@ÁÀȦÂÄǞǍĂĀÃÅǺǼǢáàȧâäǟǎăāãåǻǽǣĄĄ̊ąą̊æɑÆⱭАа';
+$g_alias = 'gǵġĝǧğǥɠǤƓǴĠĜǦĞĢ';
+$i_alias = 'i1L||ıɩįɨɨ̧ĮƗƗ̧íìîïǐĭīĩịÍÌİÎÏǏĬĪĨỊĺļľŀḷḽІії';
+$n_alias = 'nŋŉńṅňñņṋŃṄŇÑŅṊ';
+
+$config['wordfilters'][] = array('/TRANN(Y|IE)?/', 'TRANSHUMANIST', true);
+$config['wordfilters'][] = array('/NIGGA/', 'UYGHA', true);
+$config['wordfilters'][] = array('/NIGGER/', 'UYGHUR', true);
+$config['wordfilters'][] = array("/t[^\p{L}0-9]*r+[^\p{L}0-9]*[$a_alias]+[^\p{L}0-9]*[$n_alias]+[^\p{L}0-9]*[$n_alias]+[^\p{L}0-9]*(y|[$i_alias]+[^\p{L}0-9]*[e3е]+)?/imu", 'transhumanist', true);
+$config['wordfilters'][] = array("/[$n_alias][^\p{L}0-9]*[$i_alias]+[^\p{L}0-9]*[$g_alias]+[^\p{L}0-9]*[$g_alias]+[^\p{L}0-9]*[e3е]+[^\p{L}0-9]*r/imu", 'uyghur', true);
+$config['wordfilters'][] = array("/[$n_alias][^\p{L}0-9]*[$i_alias]+[^\p{L}0-9]*[$g_alias]+[^\p{L}0-9]*[$g_alias]+/imu", 'uygh', true);
+$config['wordfilters'][] = array('/ewish uyghur/i', 'ewish nigger', true);
+
+
+/*
+ * Filters for diverting anorectal violence spammer
+ */
+$fakereason_ano = 'Due to automated child pornography and gore spam by /pol/, all posting now requires a pass.<br>To receive a one-week pass, email a short explanation of the Labor Theory of Value to space@national.shitposting.agency .';
+$config['filters'][] = array(
+    'condition' => array(
+        'subject'  => '/anorectal/i', // Typical thread subject used
+    ),
+    'action' => 'reject',
+    'message' => "$fakereason_ano" 
+);
+$config['filters'][] = array(
+    'condition' => array(
+        'filename'  => '/(TAKE ACTION v|trends.*associations|anusporn|anal insanity|anorectal risks|TAv[0-9]+|arisks)/', // Typical opening filename format. Their usual evasion strategy is to post only the image.
+    ),
+    'action' => 'reject',
+    'message' => "$fakereason_ano"
+);
+
+// Favorite names and buzzterms
+$config['filters'][] = array(
+    'condition' => array(
+        'body'  => '/(Rocco Siff|Evil Angel|Xavier Becerra|AdultDVDTalk|painal|Roughanal|anoreceptive|ltimately this is not about me|Logically-fallacious diversionary tactics)/',
+    ),
+    'action' => 'reject',
+    'message' => "$fakereason_ano"
+);
+
+/*
+ * Filter TheThingN0ticer ban evader
+ */
+event_handler('post', function($post, $tor) {
+    if($post->board == 'leftypol'){
+    // note: just posting nazi flag with name doesn't trigger, on purpose
+    $n = 0;
+    // body is just a twitter account (or has ?lang=en or something)
+    if(preg_match('/^(https:\/\/)?(www.|m(obile)?.)?twitter\.com\/[a-zA-Z0-9_-]+\/?[#?&a-zA-Z0-9=_-]*(<tinyboard[^>]*>[^<]*<\/tinyboard>|<[^>]*>|\s)*$/',
+                    $post->body_nomarkup)){$n+=2;}
+    if($post->has_file && preg_match('/^Untitled[0-9]*.png/', $post->files[0]->filename)){$n+=2;}
+    if($post->name != 'Anonymous'){$n++; if($post->name == 'NasheedsSeedAndFeed'){$n+=2;}}
+    if(strpos($post->body_nomarkup,'<tinyboard flag>nazi</tinyboard>')){$n++;}
+    
+    if($n > 2){
+        if($tor){return 'Flood detected; Post discarded.';}
+        return 'Your IP address is listed in multirbl or rbl.efnetrbl.org.';
+    }
+    }
+});
+
 
 // Changes made via web editor by "zul_admin" @ Fri, 19 Feb 2021 15:06:33 -0800:
 $config['reply_limit'] = 800;
+
+
+// Changes made via web editor by "zul_admin" @ Tue, 27 Apr 2021 15:37:26 -0700:
+$config['reply_limit'] = 600;
+
+
+// Changes made via web editor by "zul_admin" @ Tue, 27 Apr 2021 15:39:19 -0700:
+$config['max_body'] = 80000;
 

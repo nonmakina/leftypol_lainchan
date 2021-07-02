@@ -474,23 +474,26 @@ function handle_post(){
             }
         }
 
-        if(isset($config['securimage']) && $config['secureimage']){
+        if(isset($config['securimage']) && $config['securimage']){
+
             if(!isset($_POST['captcha'])){
                 error($config['error']['securimage']['missing']);
             }
+
             if(empty($_POST['captcha'])){
                 error($config['error']['securimage']['empty']);
             }
+
             $query=prepare('DELETE FROM captchas WHERE time<DATE_SUB(NOW(), INTERVAL 30 MINUTE)');
             $query=prepare('DELETE FROM captchas WHERE ip=:ip AND code=:code LIMIT 1');
             $query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
             $query->bindValue(':code', $_POST['captcha']);
             $query->execute();
+
             if($query->rowCount()==0){
                 error($config['error']['securimage']['bad']);
             }
         }
-
 
         if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
             (!$post['op'] && $_POST['post'] == $config['button_reply']))) {
@@ -1292,10 +1295,13 @@ function handle_post(){
         }
     }
 
+    // Custom /leftypol/ var to check if Tor
+    $tor = ($_SERVER['REMOTE_ADDR'] == '127.0.0.1');
+
     $post = (object)$post;
     $post->files = array_map(function($a) { return (object)$a; }, $post->files);
 
-    $error = event('post', $post);
+    $error = event('post', $post, $tor);
     $post->files = array_map(function($a) { return (array)$a; }, $post->files);
 
     if ($error) {

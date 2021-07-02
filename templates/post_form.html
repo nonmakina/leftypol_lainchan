@@ -96,16 +96,30 @@
 			</td>
 		</tr>
 		{% endif %}
+		{% if config.securimage %}
+		<tr>
+			<th>
+				Captcha
+			</th>
+			<td>
+		        <img name="captcha-img" id="captcha-img" src="/captcha.php" onClick="this.src='/captcha.php?'+Date.now();document.getElementById('captcha').value = '';"><br />
+				<input type="text" name="captcha" id="captcha" size="25" maxlength="10" autocomplete="off">
+			</td>
+		</tr>
+		{% endif %}
 		{% if config.user_flag %}
 			<tr>
 				<th>{% trans %}Flag{% endtrans %}</th>
 				<td>
-					<select name="user_flag" id="user_flag">
+					<select name="user_flag" id="user_flag" style="float:left">
 						<option value="">{% trans %}None{% endtrans %}</option>
 						{% for flag, text in config.user_flags %}
 							<option value="{{ flag }}">{{ text }}</option>
 						{% endfor %}
 					</select>
+					{% if config.flag_preview %}
+					<img name="flag_preview" id="flag_preview" style="vertical-align:middle; margin: 0px 3px;">
+					{% endif %}
 				</td>
 			</tr>
 		{% endif %}
